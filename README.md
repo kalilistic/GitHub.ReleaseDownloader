@@ -7,8 +7,8 @@
 
 <p align="center">
   <a href="https://github.com/kalilistic/github.releasedownloader/releases/latest"><img src="https://img.shields.io/github/v/release/kalilistic/github.releasedownloader"></a>
-  <a href="https://ci.appveyor.com/project/kalilistic/github.releasedownloader/branch/master"><img src="https://img.shields.io/appveyor/ci/kalilistic/github.releasedownloader"></a>
-  <a href="https://ci.appveyor.com/project/kalilistic/github.releasedownloader/branch/master/tests"><img src="https://img.shields.io/appveyor/tests/kalilistic/github.releasedownloader"></a>
+  <a href="https://ci.appveyor.com/project/kalilistic/github-releasedownloader/branch/master"><img src="https://img.shields.io/appveyor/ci/kalilistic/github-releasedownloader"></a>
+  <a href="https://ci.appveyor.com/project/kalilistic/github-releasedownloader/branch/master/tests"><img src="https://img.shields.io/appveyor/tests/kalilistic/github-releasedownloader"></a>
   <a href="https://codecov.io/gh/kalilistic/github.releasedownloader/branch/master"><img src="https://img.shields.io/codecov/c/gh/kalilistic/github.releasedownloader"></a>
   <a href="https://github.com/kalilistic/github.releasedownloader/blob/master/LICENSE"><img src="https://img.shields.io/github/license/kalilistic/github.releasedownloader?color=lightgrey"></a>
 </p>

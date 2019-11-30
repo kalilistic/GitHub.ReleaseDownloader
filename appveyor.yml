@@ -3,6 +3,8 @@ build_script:
 - cmd: PowerShell -Version 2.0 .\build.ps1
 skip_tags: true
 test: off
+init:
+- git config --global core.autocrlf true
 environment:
   GITHUB_TOKEN:
     secure: HB3n97DnnVDsHgE4+O//U0IBTFfmNnba1yUYKL9BIxKskTLjG1JgjCxcOw5bt2IE
