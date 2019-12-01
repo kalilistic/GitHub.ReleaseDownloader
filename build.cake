@@ -86,7 +86,7 @@ Task ("Set-Version")
     .IsDependentOn ("Restore-Nuget-Packages")
     .Does (() => {
         if (isLocalBuild) {
-            version = GitVersion ().SemVer + "-LOCAL";
+            version = "1.0.0-LOCAL";
         } else if (isPullRequest) {
             version = GitVersion ().SemVer + ".pr." + pullRequestNumber + "+" + appVeyorBuildVersion;
         } else if (!isMasterBranch) {
@@ -121,15 +121,22 @@ Task ("Run-Unit-Tests")
     .WithCriteria (buildSuccess)
     .IsDependentOn ("Build")
     .Does (() => {
-        var testsPath = "./src/**/bin/" + configuration + "/*.Test.dll";
+        MSBuild (solutionFile, settings =>
+            settings.SetConfiguration ("Debug"));
+        var testsPath = "./src/**/bin/Debug/*.Test.dll";
         var coverageReportDCVR = testResultDir + File ("result.dcvr");
         DotCoverCover (tool => {
-                tool.NUnit3 (testsPath, new NUnit3Settings {
-                    Results = new [] { new NUnit3Result { FileName = testResultFile } }
-                });
+                tool.NUnit3 (
+                    testsPath, 
+                    new NUnit3Settings {
+                        Results = new [] { new NUnit3Result { FileName = testResultFile } },
+                        ShadowCopy = false
+                    });
             },
             new FilePath (coverageReportDCVR),
-            new DotCoverCoverSettings ());
+            new DotCoverCoverSettings ()
+                .WithFilter("+:" + projectName)
+                .WithFilter("-:" + projectName + ".Test"));
         DotCoverReport (new FilePath (coverageReportDCVR),
             new FilePath (coverageReportXML),
             new DotCoverReportSettings {
