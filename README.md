@@ -53,7 +53,7 @@ httpClient.Dispose();
 
 ## Considerations
 * Versions must be SemVer-compliant or exception will be thrown.
-* Will not compare and silently skip over GitHub releases that aren't Semver-compliant.
+* Will not compare and silently skip over GitHub releases that aren't AssemblyVersion-compliant.
 * GitHub API calls are made anonymously and subject to rate limits.
 
 ## How To Contribute
