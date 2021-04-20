@@ -19,7 +19,7 @@ Small .NET framework library to compare versions and download the latest GitHub 
 
 ## Key Features
 
-* Check if current version is most recent using SemVer.
+* Check if current version is most recent using AssemblyVersion.
 * Download latest release artifacts from GitHub releases.
 * Include / exclude pre-releases.
   
