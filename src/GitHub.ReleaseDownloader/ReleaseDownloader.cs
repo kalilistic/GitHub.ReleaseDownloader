@@ -159,30 +159,35 @@ namespace GitHub.ReleaseDownloader
 
         #region Download Methods
 
-        public bool DownloadRelease(string releaseId)
+        public List<FileInfo> DownloadRelease(string releaseId)
         {
             var assetInfos = GetAssetsAsync(releaseId).Result;
-
+            var fileInfos = new List<FileInfo>();
             while (!Directory.Exists(_settings.DownloadDirPath))
             {
                 Directory.CreateDirectory(_settings.DownloadDirPath);
                 Thread.Sleep(1);
             }
 
-            foreach (var assetInfo in assetInfos)
+            if (!assetInfos.Any())
             {
-                _ = DownloadAssetAsync(assetInfo);
+                return null;
             }
 
-            return true;
+            foreach (var assetInfo in assetInfos)
+            {
+                fileInfos.Add(DownloadAssetAsync(assetInfo).Result);
+            }
+
+            return fileInfos;
         }
 
-        public bool DownloadLatestRelease()
+        public List<FileInfo> DownloadLatestRelease()
         {
             return DownloadRelease(GetLatestRelease().Key);
         }
 
-        public bool DownloadLatestReleaseAsset(string assetIdName)
+        public FileInfo DownloadLatestReleaseAsset(string assetIdName)
         {
             var latestReleaseId = GetLatestRelease().Key;
             var assetInfos = GetAssetsAsync(latestReleaseId).Result;
@@ -195,10 +200,9 @@ namespace GitHub.ReleaseDownloader
 
             if (!assetInfos.Any(x => assetIdName.Equals(x["id"]) || assetIdName.Equals(x["name"])))
             {
-                return false;
+                return null;
             }
-            _ = DownloadAssetAsync(assetInfos.First(x => assetIdName.Equals(x["id"]) || assetIdName.Equals(x["name"])));
-            return true;
+            return DownloadAssetAsync(assetInfos.First(x => assetIdName.Equals(x["id"]) || assetIdName.Equals(x["name"]))).Result; 
         }
         #endregion
 
@@ -304,10 +308,11 @@ namespace GitHub.ReleaseDownloader
             return assetinfo;
         }
 
-        private async Task DownloadAssetAsync(Dictionary<string,object> assetInfo)
+        private async Task<FileInfo> DownloadAssetAsync(Dictionary<string,object> assetInfo)
         {
             try
             {
+                FileInfo fileInfo = null;
                 var path = Path.Combine(_settings.DownloadDirPath, Path.GetFileName(assetInfo["name"].ToString()));
 
                 HttpClient.DefaultRequestHeaders.Accept.First().MediaType = assetInfo["content_type"].ToString();
@@ -323,8 +328,11 @@ namespace GitHub.ReleaseDownloader
                     {
                         stream.Seek(0, SeekOrigin.Begin);
                         stream.CopyTo(fileStream);
+
+                        fileInfo = new FileInfo(path);
                     }
                 }
+                return fileInfo;
 
             }
             catch (Exception ex)

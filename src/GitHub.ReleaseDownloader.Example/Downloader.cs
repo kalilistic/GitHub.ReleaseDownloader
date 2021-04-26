@@ -57,10 +57,10 @@ namespace GitHub.ReleaseDownloader.Example
                     return;
                 }
 
-                downloader.SetPAT("a");
+                //downloader.SetPAT("a");
 
                 // Check Version
-                bool isMostRecentVersion = false; downloader.IsLatestRelease("0.1.0.0");
+                bool isMostRecentVersion = downloader.IsLatestRelease("0.1.0.0");
 
                 // Download Latest Github Release
                 if (!isMostRecentVersion)
@@ -70,7 +70,7 @@ namespace GitHub.ReleaseDownloader.Example
 
                     //downloader.DownloadLatestReleaseAsset("ac");
 
-                    downloader.DownloadLatestRelease();
+                   var last=  downloader.DownloadLatestRelease();
                 }
             }
             catch (Exception ex)

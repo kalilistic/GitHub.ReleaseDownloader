@@ -45,7 +45,7 @@ namespace GitHubReleaseDownloader.Test
             var httpClient = new HttpClient();
             var settings = new ReleaseDownloaderSettings(Author, Repo, true, _downloadDirPath);
             _downloader = new ReleaseDownloader(settings, httpClient);
-            Assert.IsTrue(_downloader.DownloadLatestRelease());
+            Assert.IsTrue(_downloader.DownloadLatestRelease().Count>0);
             httpClient.Dispose();
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 
 namespace GitHub.ReleaseDownloader
@@ -9,9 +10,9 @@ namespace GitHub.ReleaseDownloader
         HttpClient HttpClient { get; }
         bool IsLatestRelease(string version);
         KeyValuePair<string, Version> GetRelease(string version);
-        bool DownloadRelease(string releaseId);
-        bool DownloadLatestRelease();
-        bool DownloadLatestReleaseAsset(string assetIdName);
+        List<FileInfo> DownloadRelease(string releaseId);
+        List<FileInfo> DownloadLatestRelease();
+        FileInfo DownloadLatestReleaseAsset(string assetIdName);
         bool IsExistUser(string userName);
         bool IsExistRepository(string userName, string repositoryName);
         void DeInit();
