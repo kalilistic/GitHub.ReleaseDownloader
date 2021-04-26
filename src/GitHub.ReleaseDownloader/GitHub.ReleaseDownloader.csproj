@@ -41,6 +41,8 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\APIException.cs" />
+    <Compile Include="Exceptions\APINotFoundException.cs" />
     <Compile Include="IReleaseDownloader.cs" />
     <Compile Include="IReleaseDownloaderSettings.cs" />
     <Compile Include="ReleaseDownloaderSettings.cs" />

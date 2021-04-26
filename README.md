@@ -19,7 +19,7 @@ Small .NET framework library to compare versions and download the latest GitHub 
 
 ## Key Features
 
-* Check if current version is most recent using SemVer.
+* Check if current version is most recent using AssemblyVersion.
 * Download latest release artifacts from GitHub releases.
 * Include / exclude pre-releases.
   
@@ -53,7 +53,7 @@ httpClient.Dispose();
 
 ## Considerations
 * Versions must be SemVer-compliant or exception will be thrown.
-* Will not compare and silently skip over GitHub releases that aren't Semver-compliant.
+* Will not compare and silently skip over GitHub releases that aren't AssemblyVersion-compliant.
 * GitHub API calls are made anonymously and subject to rate limits.
 
 ## How To Contribute
